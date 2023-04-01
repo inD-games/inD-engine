@@ -35,3 +35,8 @@ jobs:
       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
       run: ctest -C ${{env.BUILD_TYPE}}
 
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        path: ${CMAKE_BINARY_DIR}/lib,${CMAKE_BINARY_DIR}/bin
+        retention-days: 14
