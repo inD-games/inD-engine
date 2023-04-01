@@ -19,6 +19,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Checkout Repository
     - uses: actions/checkout@v3
 
     - name: Configure CMake
@@ -36,13 +37,10 @@ jobs:
       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
       run: ctest -C ${{env.BUILD_TYPE}}
 
-    - name: Generate Artifact Name
-      run: echo "sha_short=$(git rev-parse --short HEAD)" >> $ARTIFACT_NAME
-
     - name: Upload Artifact
       uses: actions/upload-artifact@v3
       with:
-        name: ${{ github.ref_name }}.${{ ARTIFACT_NAME }}
+        name: ${{ github.ref_name }}.${{ github.event.head_commit.timestamp }}.${{ github.event.head_commit.id }}
         path: |
           ${{github.workspace}}/build/bin/
           ${{github.workspace}}/build/lib/
