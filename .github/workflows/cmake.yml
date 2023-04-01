@@ -37,10 +37,14 @@ jobs:
       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
       run: ctest -C ${{env.BUILD_TYPE}}
 
+    - name: Return Current Date
+      id: date
+      run: echo "::set-output name=date::$(date +'%Y%m%d')"
+
     - name: Upload Artifact
       uses: actions/upload-artifact@v3
       with:
-        name: ${{ github.ref_name }}.${{ github.event.head_commit.timestamp }}.${{ github.event.head_commit.id }}
+        name: ${{ github.ref_name }}.${{ steps.date.outputs.date }}.${{ github.event.head_commit.id }}
         path: |
           ${{github.workspace}}/build/bin/
           ${{github.workspace}}/build/lib/
