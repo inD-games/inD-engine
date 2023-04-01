@@ -38,5 +38,5 @@ jobs:
     - name: Upload Artifact
       uses: actions/upload-artifact@v3
       with:
-        path: ${CMAKE_BINARY_DIR}/lib,${CMAKE_BINARY_DIR}/bin
+        path: ${{github.workspace}}/build
         retention-days: 14
