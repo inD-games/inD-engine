@@ -35,10 +35,13 @@ jobs:
       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
       run: ctest -C ${{env.BUILD_TYPE}}
 
+    - name: Generate Artifact Name
+      run: echo "sha_short=$(git rev-parse --short HEAD)" >> $ARTIFACT_NAME
+
     - name: Upload Artifact
       uses: actions/upload-artifact@v3
       with:
-        name: ${{ github.head_ref }}.${{ github.sha }}
+        name: ${{ github.ref_name }}.${{ ARTIFACT_NAME }}
         path: |
           ${{github.workspace}}/build/bin/
           ${{github.workspace}}/build/lib/
