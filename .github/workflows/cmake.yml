@@ -38,5 +38,8 @@ jobs:
     - name: Upload Artifact
       uses: actions/upload-artifact@v3
       with:
-        path: ${{github.workspace}}/build
+        name: ${{ github.head_ref }}.${{ github.sha }}
+        path: |
+          ${{github.workspace}}/build/bin/
+          ${{github.workspace}}/build/lib/
         retention-days: 14
