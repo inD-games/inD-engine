@@ -39,7 +39,7 @@ jobs:
 
     - name: Return Current Date
       id: date
-      run: echo "date=test" >> $GITHUB_OUTPUT
+      run: echo "date=date::$(date +'%Y%m%d')" >> $GITHUB_OUTPUT
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v3
