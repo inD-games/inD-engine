@@ -7,6 +7,7 @@ env:
   NINJA_VERSION: 1.11.1
   BUILD_TYPE: Release
   CCACHE_VERSION: 4.7.3
+  VULKAN_SDK: "D:/a/inD-engine/inD-engine/VULKAN_SDK"
 
 jobs:
   build:
