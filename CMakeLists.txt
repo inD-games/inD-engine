@@ -26,20 +26,24 @@ if(INITIALIZE_SUBMODULES)
     endif()
 endif()
 
+if (NOT DEFINED $ENV{VULKAN_SDK})
+    message("$ENV{VULKAN_SDK} not defined")
+    set(VULKAN_SDK "C:/VulkanSDK/1.3.243.0")
+else ()
+    message("$ENV{VULKAN_SDK} defined")
+    message($ENV{VULKAN_SDK})
+    set(VULKAN_SDK $ENV{VULKAN_SDK})
+endif ()
+message(${VULKAN_SDK})
+include_directories(AFTER ${VULKAN_SDK}/Include)
+link_directories(${VULKAN_SDK}/Bin;${VULKAN_SDK}/Lib;)
+
+add_subdirectory(glm)
+
 set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 add_subdirectory(glfw3)
-
-add_subdirectory(glm)
-
-if (NOT DEFINED $ENV{VULKAN_SDK})
-    set(VULKAN_SDK "C:/VulkanSDK/1.3.243.0")
-else ()
-    set(VULKAN_SDK ${$ENV{VULKAN_SDK}})
-endif ()
-include_directories(AFTER ${VULKAN_SDK}/Include)
-link_directories(${VULKAN_SDK}/Bin;${VULKAN_SDK}/Lib;)
 
 add_executable(${PROJECT_NAME} WIN32 main.cpp VulkanRenderer.h Utilities.h VulkanRenderer.cpp)
 
@@ -50,9 +54,9 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "GNU")
     endif ()
 endif ()
 
-target_link_libraries(${PROJECT_NAME} PRIVATE glfw)
-target_link_libraries(${PROJECT_NAME} PRIVATE glm)
 target_link_libraries(${PROJECT_NAME} PRIVATE vulkan-1)
+target_link_libraries(${PROJECT_NAME} PRIVATE glm)
+target_link_libraries(${PROJECT_NAME} PRIVATE glfw)
 install(TARGETS ${PROJECT_NAME})
 
 #enable_testing()
