@@ -1,4 +1,4 @@
-name: CMake Build Matrix
+name: Builds
 
 on: [push, pull_request]
 
@@ -7,7 +7,6 @@ env:
   NINJA_VERSION: 1.11.1
   BUILD_TYPE: Release
   CCACHE_VERSION: 4.7.3
-  VULKAN_SDK: "D:/a/inD-engine/inD-engine/_vulkan_build"
 
 jobs:
   build:
@@ -24,19 +23,12 @@ jobs:
           }
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout Repository
+        uses: actions/checkout@v3
 
-      - name: Prepare Vulkan SDK
-        uses: humbletim/setup-vulkan-sdk@v1.2.0
-        with:
-          vulkan-query-version: 1.3.243.0
-          vulkan-components: Vulkan-Headers, Vulkan-Loader
-          vulkan-use-cache: true
-
-      - name: Configure
+      - name: CMake Configure
         shell: cmake -P {0}
         run: |
-          set(ENV{VULKAN_SDK} ${{ matrix.config.VULKAN_SDK }})
           set(ENV{CC} ${{ matrix.config.cc }})
           set(ENV{CXX} ${{ matrix.config.cxx }})
           
@@ -70,12 +62,9 @@ jobs:
             message(FATAL_ERROR "Bad exit status")
           endif()
 
-
-      - name: Build
+      - name: CMake Build
         shell: cmake -P {0}
         run: |
-          set(ENV{VULKAN_SDK} ${{ matrix.config.VULKAN_SDK }})
-          
           if ("${{ runner.os }}" STREQUAL "Windows" AND NOT "x${{ matrix.config.environment_script }}" STREQUAL "x")
             file(STRINGS environment_script_output.txt output_lines)
             foreach(line IN LISTS output_lines)
@@ -133,7 +122,8 @@ jobs:
         run: |
           echo "${{ steps.create_release.outputs.upload_url }}" > ./upload_url
 
-      - uses: actions/upload-artifact@v3
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
         with:
           path: ./upload_url
           name: upload_url
@@ -164,7 +154,9 @@ jobs:
         with:
           name: upload_url
           path: ./
-      - id: set_upload_url
+
+      - name: Set Upload URL
+        id: set_upload_url
         run: |
           upload_url=`cat ./upload_url`
           echo upload_url=$upload_url >> $GITHUB_OUTPUT
