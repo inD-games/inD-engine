@@ -35,6 +35,8 @@ add_subdirectory(glm)
 
 if (NOT DEFINED $ENV{VULKAN_SDK})
     set(VULKAN_SDK "C:/VulkanSDK/1.3.243.0")
+else ()
+    set(VULKAN_SDK ${$ENV{VULKAN_SDK}})
 endif ()
 include_directories(AFTER ${VULKAN_SDK}/Include)
 link_directories(${VULKAN_SDK}/Bin;${VULKAN_SDK}/Lib;)
