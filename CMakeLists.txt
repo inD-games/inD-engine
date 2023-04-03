@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.20)
 project(engine)
 
+set(CMAKE_${lang}_CREATE_CONSOLE_EXE "/subsystem:console")
+
 option(INITIALIZE_SUBMODULES "Check submodules on configuration" TRUE)
 if(INITIALIZE_SUBMODULES)
     find_package(Git QUIET)
@@ -29,7 +31,7 @@ set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 add_subdirectory(glfw3)
 
-add_executable(${PROJECT_NAME} main.cpp VulkanRenderer.h Utilities.h VulkanRenderer.cpp)
+add_executable(${PROJECT_NAME} WIN32 main.cpp VulkanRenderer.h Utilities.h VulkanRenderer.cpp)
 
 include(CheckCXXCompilerFlag)
 if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
