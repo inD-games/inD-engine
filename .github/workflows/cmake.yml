@@ -162,6 +162,7 @@ jobs:
       - name: Build
         shell: cmake -P {0}
         run: |
+          set(ENV{VULKAN_SDK} ${{ matrix.config.VULKAN_SDK }})
           set(ENV{NINJA_STATUS} "[%f/%t %o/sec] ")
           
           if ("${{ runner.os }}" STREQUAL "Windows" AND NOT "x${{ matrix.config.environment_script }}" STREQUAL "x")
