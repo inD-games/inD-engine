@@ -1,8 +1,6 @@
 cmake_minimum_required(VERSION 3.20)
 project(engine)
 
-set(CMAKE_${lang}_CREATE_CONSOLE_EXE "/subsystem:console")
-
 option(INITIALIZE_SUBMODULES "Check submodules on configuration" TRUE)
 if(INITIALIZE_SUBMODULES)
     find_package(Git QUIET)
@@ -47,7 +45,5 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "GNU")
     endif ()
 endif ()
 
-target_link_libraries(${PROJECT_NAME} PRIVATE vulkan-1)
-target_link_libraries(${PROJECT_NAME} PRIVATE glm)
-target_link_libraries(${PROJECT_NAME} PRIVATE glfw)
+target_link_libraries(${PROJECT_NAME} PRIVATE -static-libstdc++ -static-libgcc vulkan-1 glm glfw)
 install(TARGETS ${PROJECT_NAME} DESTINATION bin)
