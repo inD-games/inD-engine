@@ -1,8 +1,21 @@
 cmake_minimum_required(VERSION 3.20)
 project(engine)
 
-set(CMAKE_CXX_FLAGS -m64)
-set(CMAKE_C_FLAGS -m64)
+include(CheckCXXCompilerFlag)
+
+if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
+    CHECK_CXX_COMPILER_FLAG(/m64 FLAG_IS_OK)
+    if (FLAG_IS_OK)
+        target_compile_options(${PROJECT_NAME} PRIVATE /m64)
+    endif ()
+endif ()
+
+if (CMAKE_CXX_COMPILER_ID MATCHES "GNU")
+    CHECK_CXX_COMPILER_FLAG(/m64 FLAG_IS_OK)
+    if (FLAG_IS_OK)
+        target_compile_options(${PROJECT_NAME} PRIVATE -m64)
+    endif ()
+endif ()
 
 option(INITIALIZE_SUBMODULES "Check submodules on configuration" TRUE)
 if(INITIALIZE_SUBMODULES)
