@@ -33,7 +33,7 @@ add_subdirectory(glfw3)
 
 add_subdirectory(glm)
 
-if (NOT DEFINED VULKAN_SDK)
+if (NOT DEFINED $ENV{VULKAN_SDK})
     set(VULKAN_SDK "C:/VulkanSDK/1.3.243.0")
 endif ()
 include_directories(AFTER ${VULKAN_SDK}/Include)
