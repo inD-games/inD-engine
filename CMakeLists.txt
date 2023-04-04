@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.20)
 set(VCPKG_DIR "${CMAKE_SOURCE_DIR}/vcpkg")
 set(CMAKE_TOOLCHAIN_FILE "${VCPKG_DIR}/scripts/buildsystems/vcpkg.cmake")
-project(engine LANGUAGES CXX)
+project(engine)
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
