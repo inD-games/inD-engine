@@ -1,5 +1,9 @@
 cmake_minimum_required(VERSION 3.20)
-project(engine)
+set(VCPKG_DIR "${CMAKE_SOURCE_DIR}/vcpkg")
+set(CMAKE_TOOLCHAIN_FILE "${VCPKG_DIR}/scripts/buildsystems/vcpkg.cmake")
+project(engine LANGUAGES CXX)
+
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
 option(INITIALIZE_SUBMODULES "Check submodules on configuration" TRUE)
 if(INITIALIZE_SUBMODULES)
@@ -22,14 +26,17 @@ set(VULKAN_SDK "${CMAKE_SOURCE_DIR}/vulkan")
 include_directories(AFTER ${VULKAN_SDK}/Include)
 link_directories(${VULKAN_SDK}/Lib;)
 
-add_subdirectory(glm)
+#set(glm_DIR ${VCPKG_DIR}/packages/glm_x64-windows/share/glm)
+find_package(glm CONFIG REQUIRED)
+#set(glfw3_DIR ${VCPKG_DIR}/packages/glfw3_x64-windows/share/glfw3)
+find_package(glfw3 CONFIG REQUIRED)
+find_package(SndFile CONFIG REQUIRED)
+find_package(OpenAL CONFIG REQUIRED)
 
-set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
-set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
-set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
-add_subdirectory(glfw3)
-
-add_executable(${PROJECT_NAME} WIN32 main.cpp VulkanRenderer.h Utilities.h VulkanRenderer.cpp)
+add_executable(${PROJECT_NAME} WIN32
+        main.cpp
+        Utilities.h VulkanRenderer.h VulkanRenderer.cpp
+        SoundDevice.h SoundBuffer.h SoundSource.h SoundBuffer.cpp SoundDevice.cpp SoundSource.cpp)
 
 include(CheckCXXCompilerFlag)
 if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
@@ -45,5 +52,6 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "GNU")
     endif ()
 endif ()
 
-target_link_libraries(${PROJECT_NAME} PRIVATE -static-libstdc++ -static-libgcc vulkan-1 glm glfw)
+target_link_libraries(${PROJECT_NAME} PRIVATE -static-libstdc++ -static-libgcc vulkan-1 glm::glm glfw SndFile::sndfile OpenAL::OpenAL)
+
 install(TARGETS ${PROJECT_NAME} DESTINATION bin)
