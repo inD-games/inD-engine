@@ -13,4 +13,4 @@ jobs:
           vulkan-components: Vulkan-Headers, Vulkan-Loader
           vulkan-use-cache: true
       - run: cmake . -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++
-      - run: cmake --build . --config Release -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++
+      - run: cmake --build . -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ --config Release
