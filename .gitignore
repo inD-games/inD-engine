@@ -110,3 +110,17 @@ fabric.properties
 .idea/caches/build_file_checksums.ser
 
 !vulkan/Lib/vulkan-1.lib
+
+CMakeLists.txt.user
+CMakeCache.txt
+CMakeFiles
+CMakeScripts
+Testing
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+_deps
+
+vcpkg
