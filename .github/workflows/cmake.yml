@@ -4,7 +4,7 @@ jobs:
   build-windows-release:
     runs-on: windows-latest
     steps:
-      - name: Install correct version of mingw
+      - name: Uninstall default mingw and perl
         run: |
           choco uninstall mingw --force
           choco uninstall strawberryperl --force
