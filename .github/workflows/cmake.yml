@@ -1,18 +1,9 @@
 name: Builds
-on: [push, pull_request]
+on: [ push, pull_request ]
 jobs:
   build-windows-release:
     runs-on: windows-latest
     steps:
-      - name: Uninstall default mingw and perl
-        run: |
-          choco uninstall mingw --force
-          choco uninstall strawberryperl --force
-      - name: Set up MinGW
-        uses: egor-tensin/setup-mingw@v2
-        with:
-          platform: x64
-      - run: pip install jinja2
       - uses: humbletim/setup-vulkan-sdk@v1.2.0
         with:
           vulkan-query-version: 1.3.243.0

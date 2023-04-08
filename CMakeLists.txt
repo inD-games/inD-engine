@@ -3,13 +3,31 @@ project(inD)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake")
 include(utils)
-
-utils_init()
+_configure()
 
 add_subdirectory(lib)
-add_subdirectory(src)
-add_subdirectory(example)
 
-utils_build()
+add_executable(${PROJECT_NAME}
+        main.cpp
+        "${_IND_HEADERS_VULKAN_VK_VIDEO}"
+        "${_IND_HEADERS_VULKAN_VULKAN}"
+        )
 
-target_link_libraries(${PROJECT_NAME} PUBLIC assimp cereal glad_vulkan_12 glfw glm imgui OpenAL rttr_core_lib spdlog)
+include(CheckCXXCompilerFlag)
+if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
+    CHECK_CXX_COMPILER_FLAG(/m64 FLAG_IS_OK)
+    if (FLAG_IS_OK)
+        target_compile_options(${PROJECT_NAME} PRIVATE /m64)
+    endif ()
+elseif (CMAKE_CXX_COMPILER_ID MATCHES "GNU")
+    CHECK_CXX_COMPILER_FLAG(-m64 FLAG_IS_OK)
+    if (FLAG_IS_OK)
+        target_compile_options(${PROJECT_NAME} PRIVATE -m64)
+    endif ()
+endif ()
+
+target_link_libraries(${PROJECT_NAME} PUBLIC ${_IND_LIBRARY_VULKAN})
+
+if (MINGW)
+    target_link_libraries(${PROJECT_NAME} PRIVATE -static-libstdc++ -static-libgcc)
+endif ()

@@ -2,9 +2,13 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/lib/glad" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/lib/glfw" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/lib/glm" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/lib/openal-soft" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/lib/assimp/assimp" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/lib/cereal/cereal" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/lib/glfw/glfw" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/lib/glm/glm" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/lib/imgui/imgui" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/lib/openal-soft/openal-soft" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/lib/rttr/rttr" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/lib/spdlog/spdlog" vcs="Git" />
   </component>
 </project>
