@@ -62,6 +62,9 @@ target_include_directories(_inD_vulkan_o PUBLIC "${_IND_DIR_HEADERS_VULKAN}")
 target_link_directories(_inD_vulkan_o PUBLIC "${_IND_DIR_LIBRARIES_VULKAN}")
 target_link_libraries(_inD_vulkan_o PUBLIC ${_IND_LIBRARY_VULKAN_VULKAN_1})
 
+message("asd ${_IND_HEADERS_VULKAN_VK_VIDEO}")
+message("asd ${_IND_HEADERS_VULKAN_VULKAN}")
+
 if (${_IND_STATIC_VULKAN})
     _cache_variable(_IND_LIBRARY_VULKAN "inD_vulkan_static")
 else ()
