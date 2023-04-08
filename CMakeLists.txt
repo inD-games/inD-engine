@@ -9,8 +9,6 @@ add_subdirectory(lib)
 
 add_executable(${PROJECT_NAME}
         main.cpp
-        "${_IND_HEADERS_VULKAN_VK_VIDEO}"
-        "${_IND_HEADERS_VULKAN_VULKAN}"
         )
 
 include(CheckCXXCompilerFlag)
