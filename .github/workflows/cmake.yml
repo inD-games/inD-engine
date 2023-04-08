@@ -9,7 +9,7 @@ jobs:
         with:
           version: 1.3.243.0
           cache: true
-      - run: ls -alh ${VULKAN_SDK}
+      - run: ls ${VULKAN_SDK}
       - uses: actions/checkout@v2
         with:
           submodules: recursive
